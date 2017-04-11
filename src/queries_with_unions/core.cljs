@@ -33,3 +33,36 @@
      :title "Yet Another Post!"
      :content "Lorem ipsum dolor sit amet, quem atomorum te quo"
      :favorites 0}]})
+
+(defui Post
+  static om/IQuery
+  (query [this]
+    [:id :type :title :author :content]))
+
+(defui Photo
+  static om/IQuery
+  (query [this]
+    [:id :type :title :image :caption]))
+
+(defui Graphic
+  static om/IQuery
+  (query [this]
+    [:id :type :title :image]))
+
+(defui DashboardItem
+  static om/Ident
+  (ident [this {:keys [id type]}]
+    [type id])
+  static om/IQuery
+  (query [this]
+    (zipmap
+      [:dashboard/post :dashboard/photo :dashboard/graphic]
+      (map #(conj % :favorites)
+           [(om/get-query Post)
+            (om/get-query Photo)
+            (om/get-query Graphic)]))))
+
+(defui Dashboard
+  static om/IQuery
+  (query [this]
+    [{:dashboard/items (om/get-query DashboardItem)}]))
