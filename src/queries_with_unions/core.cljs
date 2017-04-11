@@ -1,16 +1,35 @@
 (ns queries-with-unions.core
-  (:require ))
+  (:require [goog.dom :as gdom]
+            [om.next :as om :refer-macros [defui]]
+            [om.dom :as dom]
+            [cljs.pprint :as pprint]))
 
 (enable-console-print!)
 
-(println "This text is printed from src/queries-with-unions/core.cljs. Go ahead and edit it and see reloading in action.")
 
-;; define your app data so that it doesn't get over-written on reload
-
-(defonce app-state (atom {:text "Hello world!"}))
-
-(defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+(def init-data
+  {:dashboard/items
+   [{:id 0 :type :dashboard/post
+     :author "Laura Smith"
+     :title "A Post!"
+     :content "Lorem ipsum dolor sit amet, quem atomorum te quo"
+     :favorites 0}
+    {:id 1 :type :dashboard/photo
+     :title "A Photo!"
+     :image "photo.jpg"
+     :caption "Lorem ipsum"
+     :favorites 0}
+    {:id 2 :type :dashboard/post
+     :author "Jim Jacobs"
+     :title "Another Post!"
+     :content "Lorem ipsum dolor sit amet, quem atomorum te quo"
+     :favorites 0}
+    {:id 3 :type :dashboard/graphic
+     :title "Charts and Stufff!"
+     :image "chart.jpg"
+     :favorites 0}
+    {:id 4 :type :dashboard/post
+     :author "May Fields"
+     :title "Yet Another Post!"
+     :content "Lorem ipsum dolor sit amet, quem atomorum te quo"
+     :favorites 0}]})
